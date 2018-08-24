@@ -21,9 +21,14 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="s1B-EN-hhQ">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="hUW-AB-H3T">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="JPe-kk-XyR" detailTextLabel="uza-nG-YKb" rowHeight="51" style="IBUITableViewCellStyleSubtitle" id="PLw-Vg-u0r">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="51"/>
+                                        <rect key="frame" x="0.0" y="72" width="375" height="51"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PLw-Vg-u0r" id="4kx-NQ-rbg">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="50.5"/>
@@ -67,6 +72,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="s1B-EN-hhQ" id="B7Q-Vh-Cml"/>
+                        <outlet property="textSearchBar" destination="hUW-AB-H3T" id="Lkv-Bd-Mhu"/>
                         <segue destination="yXK-uC-tX3" kind="show" identifier="cellSegue" id="eAp-4G-48J"/>
                     </connections>
                 </viewController>

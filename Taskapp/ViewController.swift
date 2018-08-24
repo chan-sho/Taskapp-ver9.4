@@ -10,9 +10,10 @@ import UIKit
 import RealmSwift
 import UserNotifications
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var textSearchBar: UISearchBar!
     
     let realm = try! Realm()
     
@@ -26,6 +27,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        textSearchBar.delegate = self
+        textSearchBar.placeholder = "カテゴリー/タイトルで検索"
+        //何も入力されていなくてもReturnキーを押せるようにする。
+        textSearchBar.enablesReturnKeyAutomatically = false
     }
     
     // 入力画面から戻ってきた時に TableView を更新させる
@@ -51,7 +57,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         // Cellに値を設定する.
         let task = taskArray[indexPath.row]
-        cell.textLabel?.text = "category: " + task.category + " / " + task.title
+        cell.textLabel?.text = "カテゴリー: " + task.category + " / " + task.title
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
@@ -120,5 +126,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             inputViewController.task = task
         }
     }
+    
+    //検索ボタン押下時の呼び出しメソッド
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        //キーボードを閉じる。
+        textSearchBar.endEditing(true)
+    }
+    
+    
+    //テキスト変更時の呼び出しメソッド
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if(textSearchBar.text == "") {
+            taskArray = realm.objects(Task.self)
+            tableView.reloadData()
+        } else {
+            let predicate = NSPredicate(format: "category CONTAINS '\(textSearchBar.text!)' OR title CONTAINS '\(textSearchBar.text!)'")
+            taskArray = realm.objects(Task.self).filter(predicate)
+            tableView.reloadData()
+        }
 
+}
 }
